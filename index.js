@@ -51,11 +51,12 @@ const editTask = (index) => {
     taskInput.value = tasks[index].text;
     tasks.splice(index ,1);
     updateTaskList();
-    updateStats();
+    updateStats(true);
     saveTasks();
+
 }
 
-const updateStats = () =>{
+const updateStats = (isFromEdit) =>{
     const completedTask = tasks.filter((task)=> task.completed).length;
     const totalTask = tasks.length;
     const progress = (completedTask/totalTask)*100;
@@ -63,7 +64,7 @@ const updateStats = () =>{
     progressBar.style.width = `${progress}%`;
 
     document.getElementById('numbers').innerText = `${completedTask} / ${totalTask}`;
-    if(tasks.length && completedTask === totalTask){
+    if(tasks.length && completedTask === totalTask && !isFromEdit){
         blaskConfetti();
     }
 };
